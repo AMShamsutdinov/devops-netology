@@ -1,98 +1,59 @@
-1) Найдите полный хеш и комментарий коммита, хеш которого начинается на aefea?
+1)Установите средство виртуализации Oracle VirtualBox.
+выполнено
 
-Команда:
-git show -s --format="%H - %s" aefea
-Ответ:
-aefead2207ef7e2aa5dc81a34aedf0cad4c32545 - Update CHANGELOG.md
+2)Установите средство автоматизации Hashicorp Vagrant.
+выполнено
 
-2) Какому тегу соответствует коммит 85024d3?
+3)В вашем основном окружении подготовьте удобный для дальнейшей работы терминал.
+выполнено
 
-Команда:
-git show -s  --format="%H -  %(describe)" 85024d3
-Ответ:
-85024d3100126de36331c6982bfaac02cdab9e76 -  v0.12.23
+4) С помощью базового файла конфигурации запустите Ubuntu 20.04 в VirtualBox посредством Vagrant:
+выполнено    
+5) Ознакомьтесь с графическим интерфейсом VirtualBox, посмотрите как выглядит виртуальная машина, которую создал для вас Vagrant, какие аппаратные ресурсы ей выделены. Какие ресурсы выделены по-умолчанию?
+выполнено:
+RAM:1024mb
+CPU:2 cpu
+HDD:64gb
+video:4mb
 
-3) Сколько родителей у коммита b8d720? Напишите их хеши.
+6) Ознакомьтесь с возможностями конфигурации VirtualBox через Vagrantfile: документация. Как добавить оперативной памяти или ресурсов процессора виртуальной машине?
+добавлением комманд в VagrantFile
 
-Команда:
-git show --format="%P" b8d720
-Ответ:
-56cd7859e05c36c06b56d013b55a252d0bb7e158 9ea88f22fc6269854151c571162c5bcf958bee2b
+  
+7)Команда vagrant ssh из директории, в которой содержится Vagrantfile, позволит вам оказаться внутри виртуальной машины без каких-либо дополнительных настроек. Попрактикуйтесь в выполнении обсуждаемых команд в терминале Ubuntu.
+выполнено
+    
+8) Ознакомиться с разделами man bash, почитать о настройках самого bash:
+Решение: какой переменной можно задать длину журнала history, и на какой строчке manual это описывается?
+HISTFILESIZE - максимальное число строк в файле истории для сохранения - строка 817
+HISTSIZE - число команд для сохранения - строка 833
+-что делает директива ignoreboth в bash?
+ignoreboth общая команда для сохранения команд ignorespace и ignoredups
+    ignorespace- не сохранять команды , которые начинаются с пробела 
+    ignoredups - не сохранять команду, если она уже есть в истории
 
-Команда:
-git log  -1 --format="%P" b8d720
-Ответ:
-56cd7859e05c36c06b56d013b55a252d0bb7e158 9ea88f22fc6269854151c571162c5bcf958bee2b
+9)В каких сценариях использования применимы скобки {} и на какой строчке man bash это описано?
+Используется для формировалиня списков, описания функций и указания зарезервированных слов в текущей среде
+Строка 228
 
-4)Перечислите хеши и комментарии всех коммитов которые были сделаны между тегами v0.12.23 и v0.12.24.
+10)Основываясь на предыдущем вопросе, как создать однократным вызовом touch 100000 файлов? А получилось ли создать 300000? Если нет, то почему?
+Команда touch {1..100000}.ch
+300000 файлов не получилось создать. Ошибка Argument list too long
 
-Команда:
-git log  v0.12.23..v0.12.24 --oneline
-Ответ:
-33ff1c03b (tag: v0.12.24) v0.12.24
-b14b74c49 [Website] vmc provider links
-3f235065b Update CHANGELOG.md
-6ae64e247 registry: Fix panic when server is unreachable
-5c619ca1b website: Remove links to the getting started guide's old location
-06275647e Update CHANGELOG.md
-d5f9411f5 command: Fix bug when using terraform login on Windows
-4b6d06cc5 Update CHANGELOG.md
-dd01a3507 Update CHANGELOG.md
-225466bc3 Cleanup after v0.12.23 release
+11)В man bash поищите по /\[\[. Что делает конструкция [[ -d /tmp ]]
+Проверяет наличие каталога temp в директории. Возвращает 1 если есть, о если нет
 
-Команда:
-git log --format="%H -%s" v0.12.23..v0.12.24
-Ответ:
-33ff1c03bb960b332be3af2e333462dde88b279e -v0.12.24
-b14b74c4939dcab573326f4e3ee2a62e23e12f89 -[Website] vmc provider links
-3f235065b9347a758efadc92295b540ee0a5e26e -Update CHANGELOG.md
-6ae64e247b332925b872447e9ce869657281c2bf -registry: Fix panic when server is unreachable
-5c619ca1baf2e21a155fcdb4c264cc9e24a2a353 -website: Remove links to the getting started guide's old location
-06275647e2b53d97d4f0a19a0fec11f6d69820b5 -Update CHANGELOG.md
-d5f9411f5108260320064349b757f55c09bc4b80 -command: Fix bug when using terraform login on Windows
-4b6d06cc5dcb78af637bbb19c198faff37a066ed -Update CHANGELOG.md
-dd01a35078f040ca984cdd349f18d0b67e486c35 -Update CHANGELOG.md
-225466bc3e5f35baa5d07197bbc079345b77525e -Cleanup after v0.12.23 release
+12)Основываясь на знаниях о просмотре текущих (например, PATH) и установке новых переменных; командах, которые мы рассматривали, добейтесь в выводе type -a bash в виртуальной машине наличия первым пунктом в списке:
+vagrant@vagrant:/bin$ mkdir /tmp/new_path_dir/
+vagrant@vagrant:/bin$ PATH=/tmp/new_path_dir/:$PATH
+vagrant@vagrant:/bin$ type -a bash
+bash is /tmp/new_path_dir/bash
+bash is /usr/bin/bash
+bash is /bin/bash
 
-5)Найдите коммит в котором была создана функция func providerSource, ее определение в коде выглядит так func providerSource(...) (вместо троеточего перечислены аргументы).
+13)Чем отличается планирование команд с помощью batch и at?
+at - команда запускается в указанное время
+batch - запускается когда уровень загрузки системы снизится ниже 1.5.
 
-Команда:
-git log -S "func providerSource" --oneline
-Ответ:
-5af1e6234 main: Honor explicit provider_installation CLI config when present
-8c928e835 main: Consult local directories as potential mirrors of providers
-
-6) Найдите все коммиты в которых была изменена функция globalPluginDirs
-
-Найдем файл где описана данна функция:
-Команда:
-git grep -p "globalPluginDirs("
-Результат:
-commands.go=func initCommands(
-commands.go:            GlobalPluginDirs: globalPluginDirs(),
-commands.go=func credentialsSource(config *cliconfig.Config) (auth.CredentialsSource, error) {
-commands.go:    helperPlugins := pluginDiscovery.FindPlugins("credentials", globalPluginDirs())
-plugins.go=import (
-plugins.go:func globalPluginDirs() []string {
-
-Подходит только plugins.go
-
-Ищем коммиты с изменениями данной функции
-
-Команда:
-git log -L :globalPluginDirs:plugins.go -s --oneline
-Результат:
-78b122055 Remove config.go and update things using its aliases
-52dbf9483 keep .terraform.d/plugins for discovery
-41ab0aef7 Add missing OS_ARCH dir to global plugin paths
-66ebff90c move some more plugin search path logic to command
-8364383c3 Push plugin discovery down into command package
-
-7) Кто автор функции synchronizedWriters
-Команда:
-git log -S "func synchronizedWriters" --format="%an -%aD -%h"
-Результат:
-James Bardin -Mon, 30 Nov 2020 18:02:04 -0500 -bdfea50cc
-Martin Atkins -Wed, 3 May 2017 16:25:41 -0700 -5ac311e2a
-
-Автор - Martin Atkins
+14) Завершите работу виртуальной машины чтобы не расходовать ресурсы компьютера и/или батарею ноутбука.
+Выполнено: vagrant suspend
