@@ -45,6 +45,7 @@ ignoreboth общая команда для сохранения команд ig
 
 12)Основываясь на знаниях о просмотре текущих (например, PATH) и установке новых переменных; командах, которые мы рассматривали, добейтесь в выводе type -a bash в виртуальной машине наличия первым пунктом в списке:
 vagrant@vagrant:/bin$ mkdir /tmp/new_path_dir/
+vagrant@vagrant:/bin$ cp /bin/bash /tmp/new_path_dir/
 vagrant@vagrant:/bin$ PATH=/tmp/new_path_dir/:$PATH
 vagrant@vagrant:/bin$ type -a bash
 bash is /tmp/new_path_dir/bash
