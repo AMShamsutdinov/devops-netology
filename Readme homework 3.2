@@ -1,0 +1,210 @@
+1)Какого типа команда cd? Попробуйте объяснить, почему она именно такого типа; опишите ход своих мыслей, если считаете что она могла бы быть другого типа.
+Ответ:
+Узнаем тип команды в консоли
+vagrant@vagrant:~$ vagrant@vagrant:~$ type cd
+cd is a shell builtin
+Получем результат, что команда является встроенной в оболочку.
+ПРЕИМУЩЕСТВА:
+- производительность, ускорение работы
+- необходмость прямого достпа к внутренним структурам командного интерпретатора 
+
+2)Какая альтернатива без pipe команде grep <some_string> <some_file> | wc -l? man grep поможет в ответе на этот вопрос.
+Ответ:grep -c <string or regular expression> [file name]
+Консоль:
+vagrant@vagrant:/tmp$ echo 'text line2' >> test1.txt
+vagrant@vagrant:/tmp$ cat test1.txt
+1
+2
+3
+
+
+
+
+
+text line2
+text line2
+vagrant@vagrant:/tmp$ grep "text line2" test1.txt|wc -l
+2
+vagrant@vagrant:/tmp$ grep -l "text line2" test1.txt
+test1.txt
+vagrant@vagrant:/tmp$ grep -c "text line2" test1.txt
+2
+
+3)Какой процесс с PID 1 является родителем для всех процессов в вашей виртуальной машине Ubuntu 20.04?
+Ответ: systemd
+Консоль:
+vagrant@vagrant:/$ ps -p 1
+    PID TTY          TIME CMD
+      1 ?        00:00:26 systemd
+vagrant@vagrant:/$ pstree -p 1
+systemd(1)─┬─VBoxService(798)─┬─{VBoxService}(799)
+           │                  ├─{VBoxService}(800)
+           │                  ├─{VBoxService}(801)
+           │                  ├─{VBoxService}(802)
+           │                  ├─{VBoxService}(803)
+           │                  ├─{VBoxService}(804)
+           │                  ├─{VBoxService}(805)
+           │                  └─{VBoxService}(806)
+           ├─accounts-daemon(603)─┬─{accounts-daemon}(606)
+           │                      └─{accounts-daemon}(660)
+           ├─atd(630)
+           ├─cron(627)
+           ├─dbus-daemon(604)
+           ├─irqbalance(611)───{irqbalance}(616)
+           ├─login(654)───bash(964)
+           ├─multipathd(507)─┬─{multipathd}(508)
+           │                 ├─{multipathd}(509)
+           │                 ├─{multipathd}(510)
+           │                 ├─{multipathd}(511)
+           │                 ├─{multipathd}(512)
+           │                 └─{multipathd}(513)
+           ├─networkd-dispat(612)
+           ├─polkitd(672)─┬─{polkitd}(673)
+           │              └─{polkitd}(675)
+           ├─rsyslogd(613)─┬─{rsyslogd}(631)
+           │               ├─{rsyslogd}(632)
+           │               └─{rsyslogd}(633)
+           ├─snapd(3611)─┬─{snapd}(3622)
+           │             ├─{snapd}(3623)
+           │             ├─{snapd}(3624)
+           │             ├─{snapd}(3625)
+           │             ├─{snapd}(3626)
+           │             ├─{snapd}(3636)
+           │             ├─{snapd}(3638)
+           │             ├─{snapd}(3645)
+           │             ├─{snapd}(3659)
+           │             └─{snapd}(3750)
+           ├─sshd(658)───sshd(3341)───sshd(3382)───bash(3383)───pstree(4618)
+           ├─systemd(958)───(sd-pam)(959)
+           ├─systemd-journal(334)
+           ├─systemd-logind(618)
+           ├─systemd-network(586)
+           ├─systemd-resolve(588)
+           ├─systemd-udevd(367)
+           ├─udisksd(619)─┬─{udisksd}(648)
+           │              ├─{udisksd}(661)
+           │              ├─{udisksd}(683)
+           │              ├─{udisksd}(692)
+           │              └─{udisksd}(4616)
+           └─upowerd(1221)─┬─{upowerd}(1223)
+                           └─{upowerd}(1224)
+4) Как будет выглядеть команда, которая перенаправит вывод stderr ls на другую сессию терминала?
+Ответ:ls -l /dev/pts >/dev/pts/1
+
+Консоль:
+vagrant@vagrant:/dev/pts$ ls -l
+total 0
+crw--w---- 1 vagrant tty  136, 0 Jan 25 22:11 0
+crw--w---- 1 vagrant tty  136, 1 Jan 25 22:11 1
+c--------- 1 root    root   5, 2 Jan 20 22:07 ptmx
+vagrant@vagrant:/dev/pts$ sudo ls -l /dev/pts >/dev/pts/1
+
+5) Получится ли одновременно передать команде файл на stdin и вывести ее stdout в другой файл? Приведите работающий пример.
+Ответ: да, получится
+Консоль:
+vagrant@vagrant:/dev/pts$ cat /tmp/test1.txt
+1
+2
+3
+
+
+
+
+
+text line2
+text line2
+vagrant@vagrant:/dev/pts$ cat </tmp/test1.txt >/tmp/testOut.txt
+vagrant@vagrant:/dev/pts$ cat /tmp/testOut.txt
+1
+2
+3
+
+
+
+
+
+text line2
+text line2
+vagrant@vagrant:/dev/pts$
+6)Получится ли находясь в графическом режиме, вывести данные из PTY в какой-либо из эмуляторов TTY? Сможете ли вы наблюдать выводимые данные?
+Ответ:
+Да получится.
+Посмотреть количество терминальных сессий в папке /dev/pts
+Потом вывести команду
+Пример:
+vagrant@vagrant:~$ ls -l /dev/pts
+total 0
+crw--w---- 1 vagrant tty  136, 0 Jan 27 16:28 0
+crw--w---- 1 vagrant tty  136, 1 Jan 27 16:28 1
+c--------- 1 root    root   5, 2 Jan 20 22:07 ptmx
+vagrant@vagrant:~$ echo "Hello another session" > /dev/pts/1
+
+в окне другой сессии увидим 
+vagrant@vagrant:~$ Hello another session
+
+если мы находимсы в pty, то выводить в окне эмулятора можно через команду 
+echo "Hello world" > dev/tty4
+Посмотреть можно переключившись в эмулято tty4
+
+7) Выполните команду bash 5>&1. К чему она приведет? Что будет, если вы выполните echo netology > /proc/$$/fd/5? Почему так происходит?
+Ответ:
+Командой 5>&1 в текущей сесси мы создаем файловый дескриптор с названием 5 значения которго сразу перенаправляются на stdout
+выполнив команду echo netology > /proc/$$/fd/5 мы перенаправили netology в файловый дескриптор 5, который перенаправил на вывод
+Консоль:
+vagrant@vagrant:~$ bash 5>&1
+vagrant@vagrant:~$ echo netology > /proc/$$/fd/5
+netology
+
+8) Получится ли в качестве входного потока для pipe использовать только stderr команды, не потеряв при этом отображение stdout на pty? Напоминаем: по умолчанию через pipe передается только stdout команды слева от | на stdin команды справа. Это можно сделать, поменяв стандартные потоки местами через промежуточный новый дескриптор, который вы научились создавать в предыдущем вопросе.
+Ответ:
+Да можно.
+Пример:
+vagrant@vagrant:~$ grep
+Usage: grep [OPTION]... PATTERNS [FILE]...
+Try 'grep --help' for more information.
+vagrant@vagrant:~$ grep 2>&1 5>&1 2>&5|grep grep -c
+2
+2>&1 - Отпрвили ошибку на вывод
+5>&1 - Временный дескриптор направляем на вывод
+2>&5 - Ошибку перенаправли на временный дескриптор	
+Команда 
+9) Что выведет команда cat /proc/$$/environ? Как еще можно получить аналогичный по содержанию вывод?
+
+Ответ:
+Выводятся переменные окружения
+Аналогичные команды:
+printenv
+env
+
+10)Используя man, опишите что доступно по адресам /proc/<PID>/cmdline, /proc/<PID>/exe.
+
+Ответ:
+/proc/<PID>/cmdline - показывает полный путь до исполняемого файла процесса, кроме свопнуты и зомби процессов
+/proc/<PID>/exe - показывает полную ссылку до файла запущенного для процесса
+
+11) Узнайте, какую наиболее старшую версию набора инструкций SSE поддерживает ваш процессор с помощью /proc/cpuinfo
+Ответ: sse4a
+Консоль:
+ cat /proc/cpuinfo|grep sse
+flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt rdtscp lm 3dnowext 3dnow constant_tsc rep_good nopl nonstop_tsc cpuid extd_apicid tsc_known_freq pni cx16 x2apic popcnt hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch vmmcall
+flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt rdtscp lm 3dnowext 3dnow constant_tsc rep_good nopl nonstop_tsc cpuid extd_apicid tsc_known_freq pni cx16 x2apic popcnt hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch vmmcall
+
+12) При открытии нового окна терминала и vagrant ssh создается новая сессия и выделяется pty. Это можно подтвердить командой tty, которая упоминалась в лекции 3.2. Однако:
+
+vagrant@netology1:~$ ssh localhost 'tty'
+not a tty
+Почитайте, почему так происходит, и как изменить поведение.
+Ответ: предполагаю,что до того как сессия не создана псевдотермиал еще не выделен, поэтому нужно поставить параметр -t для принудительного создания псевдотерминала
+Консоль:
+vagrant@vagrant:~$ ssh -t localhost 'tty'
+
+13)Бывает, что есть необходимость переместить запущенный процесс из одной сессии в другую. Попробуйте сделать это, воспользовавшись reptyr. Например, так можно перенести в screen процесс, который вы запустили по ошибке в обычной SSH-сессии.
+Ответ:
+Не было установлено Reptyr.
+Уствановил, но потом пришлось поменять  значение в конф файле etc/sysctl.d/10-ptrace.conf парамента на kernel.yama.ptrace_scope = 0
+Далее перенсти процесс перенсти на новый термиал получилось.
+
+14)sudo echo string > /root/new_file не даст выполнить перенаправление под обычным пользователем, так как перенаправлением занимается процесс shell'а, который запущен без sudo под вашим пользователем. Для решения данной проблемы можно использовать конструкцию echo string | sudo tee /root/new_file. Узнайте что делает команда tee и почему в отличие от sudo echo команда с sudo tee будет работать.
+
+Echo является встроенной программой bash и запущена под пользователем в текущей сессии.
+tee не является встроенной программой расширить права можно с использованием sudo, т.е. под запуском с правами root
