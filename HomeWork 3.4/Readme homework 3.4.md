@@ -43,6 +43,7 @@
      EOF
 
 Добавляем в автозагрузку:
+     
      systemctl enable node_exporter
      systemctl daemon-reload
      systemctl start node_exporter
