@@ -100,11 +100,12 @@ config.vm.network "forwarded_port", guest: 19999, host: 19999
 
 Ответ:
      
-vagrant@vagrant:~$ sysctl fs.nr_open
-fs.nr_open = 1048576
+     vagrant@vagrant:~$ sysctl fs.nr_open
+     fs.nr_open = 1048576
+     
 Этот параметр ограничивает количество одновременно открытых дескрипторов. По умолчанию - 1048576
-Максимальное количество ограничивается командой: 
-ulimit -h [limit]
+Максимальное количество ограничивается командой:
+     ulimit -h [limit]
 
 6)Запустите любой долгоживущий процесс (не ls, который отработает мгновенно, а, например, sleep 1h) в отдельном неймспейсе процессов; покажите, что ваш процесс работает под PID 1 через nsenter. Для простоты работайте в данном задании под root (sudo -i). Под обычным пользователем требуются дополнительные опции (--map-root-user) и т.д.
      
@@ -135,7 +136,7 @@ ulimit -h [limit]
 
 Процесс который остановил рекурсию
      
-[ 5484.569926] cgroup: fork rejected by pids controller in /user.slice/user-1000.slice/session-3.scope
+     [ 5484.569926] cgroup: fork rejected by pids controller in /user.slice/user-1000.slice/session-3.scope
 
 Посмотреть количество всех лимитов можно через команду ulimit -a
      
