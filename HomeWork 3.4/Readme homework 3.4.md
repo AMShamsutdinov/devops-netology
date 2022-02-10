@@ -86,6 +86,7 @@ config.vm.network "forwarded_port", guest: 19999, host: 19999
 Ответ:
 Да, можно понять.
 Консоль:
+     
      vagrant@vagrant:~$ dmesg |grep virt
      [    0.031304] CPU MTRRs all blank - virtualized system.
      [    0.173972] Booting paravirtualized kernel on KVM
@@ -94,6 +95,7 @@ config.vm.network "forwarded_port", guest: 19999, host: 19999
 
 5) Как настроен sysctl fs.nr_open на системе по-умолчанию? Узнайте, что означает этот параметр. Какой другой существующий лимит не позволит достичь такого числа (ulimit --help)?
 Ответ:
+     
 vagrant@vagrant:~$ sysctl fs.nr_open
 fs.nr_open = 1048576
 Этот параметр ограничивает количество одновременно открытых дескрипторов. По умолчанию - 1048576
@@ -102,20 +104,21 @@ ulimit -h [limit]
 
 6)Запустите любой долгоживущий процесс (не ls, который отработает мгновенно, а, например, sleep 1h) в отдельном неймспейсе процессов; покажите, что ваш процесс работает под PID 1 через nsenter. Для простоты работайте в данном задании под root (sudo -i). Под обычным пользователем требуются дополнительные опции (--map-root-user) и т.д.
 Ответ:
-root@vagrant:~# unshare -f --pid --mount-proc sleep 10h
-^Z
-[1]+  Stopped                 unshare -f --pid --mount-proc sleep 10h
-root@vagrant:~# ps aux | grep slee
-root        3507  0.0  0.0   5480   584 pts/0    T    18:23   0:00 unshare -f --pid --mount-proc sleep 10h
-root        3508  0.0  0.0   5476   532 pts/0    S    18:23   0:00 sleep 10h
-root        3514  0.0  0.0   6300   736 pts/0    S+   18:24   0:00 grep --color=auto slee
-root@vagrant:~# nsenter --target 3508 --pid --mount
-root@vagrant:/# ps aux
-USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-root           1  0.0  0.0   5476   532 pts/0    S    18:23   0:00 sleep 10h
-root           2  0.0  0.3   7236  3976 pts/0    S    18:24   0:00 -bash
-root          13  0.0  0.3   8892  3120 pts/0    R+   18:25   0:00 ps aux
-root@vagrant:/#
+
+     root@vagrant:~# unshare -f --pid --mount-proc sleep 10h
+     ^Z
+     [1]+  Stopped                 unshare -f --pid --mount-proc sleep 10h
+     root@vagrant:~# ps aux | grep slee
+     root        3507  0.0  0.0   5480   584 pts/0    T    18:23   0:00 unshare -f --pid --mount-proc sleep 10h
+     root        3508  0.0  0.0   5476   532 pts/0    S    18:23   0:00 sleep 10h
+     root        3514  0.0  0.0   6300   736 pts/0    S+   18:24   0:00 grep --color=auto slee
+     root@vagrant:~# nsenter --target 3508 --pid --mount
+     root@vagrant:/# ps aux
+     USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+     root           1  0.0  0.0   5476   532 pts/0    S    18:23   0:00 sleep 10h
+     root           2  0.0  0.3   7236  3976 pts/0    S    18:24   0:00 -bash
+     root          13  0.0  0.3   8892  3120 pts/0    R+   18:25   0:00 ps aux
+     root@vagrant:/#
 
 
 7) Найдите информацию о том, что такое :(){ :|:& };:. Запустите эту команду в своей виртуальной машине Vagrant с Ubuntu 20.04 (это важно, поведение в других ОС не проверялось). Некоторое время все будет "плохо", после чего (минуты) – ОС должна стабилизироваться. Вызов dmesg расскажет, какой механизм помог автоматической стабилизации. Как настроен этот механизм по-умолчанию, и как изменить число процессов, которое можно создать в сессии?
@@ -125,6 +128,7 @@ root@vagrant:/#
 Процесс который остановил рекурсию
 [ 5484.569926] cgroup: fork rejected by pids controller in /user.slice/user-1000.slice/session-3.scope
 Посмотреть количество всех лимитов можно через команду ulimit -a
+     
      root@vagrant:~# ulimit -a
      core file size          (blocks, -c) 0
      data seg size           (kbytes, -d) unlimited
