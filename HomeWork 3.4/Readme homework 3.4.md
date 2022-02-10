@@ -72,7 +72,7 @@
      Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.665Z caller=node_exporter.go:199 msg="Lis>
      Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.665Z caller=tls_config.go:191 msg="TLS is>
      
-передается параметр *--log.level=info*
+передается параметр `--log.level=info`
 Работоспособность можно проверить по адресу http://localhost:9100/metrics
 
 2) Ознакомьтесь с опциями node_exporter и выводом /metrics по-умолчанию. Приведите несколько опций, которые вы бы выбрали для базового мониторинга хоста по CPU, памяти, диску и сети.
