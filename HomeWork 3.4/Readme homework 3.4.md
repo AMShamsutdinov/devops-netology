@@ -86,6 +86,7 @@ config.vm.network "forwarded_port", guest: 19999, host: 19999
 
 Ответ:
 Да, можно понять.
+     
 Консоль:
      
      vagrant@vagrant:~$ dmesg |grep virt
