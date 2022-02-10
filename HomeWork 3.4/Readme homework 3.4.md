@@ -71,7 +71,7 @@
      Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.665Z caller=node_exporter.go:199 msg="Lis>
      Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.665Z caller=tls_config.go:191 msg="TLS is>
      
-     --Работоспособность можно проверить по адресу http://localhost:9100/metrics
+Работоспособность можно проверить по адресу http://localhost:9100/metrics
 
 2)Ознакомьтесь с опциями node_exporter и выводом /metrics по-умолчанию. Приведите несколько опций, которые вы бы выбрали для базового мониторинга хоста по CPU, памяти, диску и сети.
 
@@ -86,11 +86,11 @@ config.vm.network "forwarded_port", guest: 19999, host: 19999
 Ответ:
 Да, можно понять.
 Консоль:
-vagrant@vagrant:~$ dmesg |grep virt
-[    0.031304] CPU MTRRs all blank - virtualized system.
-[    0.173972] Booting paravirtualized kernel on KVM
-[    0.390287] Performance Events: PMU not available due to virtualization, using software events only.
-[    3.213111] systemd[1]: Detected virtualization oracle.
+     vagrant@vagrant:~$ dmesg |grep virt
+     [    0.031304] CPU MTRRs all blank - virtualized system.
+     [    0.173972] Booting paravirtualized kernel on KVM
+     [    0.390287] Performance Events: PMU not available due to virtualization, using software events only.
+     [    3.213111] systemd[1]: Detected virtualization oracle.
 
 5) Как настроен sysctl fs.nr_open на системе по-умолчанию? Узнайте, что означает этот параметр. Какой другой существующий лимит не позволит достичь такого числа (ulimit --help)?
 Ответ:
@@ -125,22 +125,22 @@ root@vagrant:/#
 Процесс который остановил рекурсию
 [ 5484.569926] cgroup: fork rejected by pids controller in /user.slice/user-1000.slice/session-3.scope
 Посмотреть количество всех лимитов можно через команду ulimit -a
-root@vagrant:~# ulimit -a
-core file size          (blocks, -c) 0
-data seg size           (kbytes, -d) unlimited
-scheduling priority             (-e) 0
-file size               (blocks, -f) unlimited
-pending signals                 (-i) 3571
-max locked memory       (kbytes, -l) 65536
-max memory size         (kbytes, -m) unlimited
-open files                      (-n) 1024
-pipe size            (512 bytes, -p) 8
-POSIX message queues     (bytes, -q) 819200
-real-time priority              (-r) 0
-stack size              (kbytes, -s) 8192
-cpu time               (seconds, -t) unlimited
-max user processes              (-u) 3571
-virtual memory          (kbytes, -v) unlimited
-file locks                      (-x) unlimited
+     root@vagrant:~# ulimit -a
+     core file size          (blocks, -c) 0
+     data seg size           (kbytes, -d) unlimited
+     scheduling priority             (-e) 0
+     file size               (blocks, -f) unlimited
+     pending signals                 (-i) 3571
+     max locked memory       (kbytes, -l) 65536
+     max memory size         (kbytes, -m) unlimited
+     open files                      (-n) 1024
+     pipe size            (512 bytes, -p) 8
+     POSIX message queues     (bytes, -q) 819200
+     real-time priority              (-r) 0
+     stack size              (kbytes, -s) 8192
+     cpu time               (seconds, -t) unlimited
+     max user processes              (-u) 3571
+     virtual memory          (kbytes, -v) unlimited
+     file locks                      (-x) unlimited
 
  По умолчанию установлено 3571 активных процессов
