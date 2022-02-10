@@ -5,10 +5,10 @@
 Ответ:
 Ответ:
      -- Скачан архив:
-сd tmp
-wget https://github.com/prometheus/node_exporter/releases/download/v1.3.1/node_exporter-1.3.1.linux-amd64.tar.gz
-tar xvfz node_exporter-0.18.1.linux-amd64.tar.gz
-cd node_exporter-0.18.1.linux-amd64
+     сd tmp
+     wget https://github.com/prometheus/node_exporter/releases/download/v1.3.1/node_exporter-1.3.1.linux-amd64.tar.gz
+     tar xvfz node_exporter-0.18.1.linux-amd64.tar.gz
+     cd node_exporter-0.18.1.linux-amd64
 
      --Перенесен в папку /usr/local/bin/:
 mv node_exporter /usr/local/bin/
@@ -18,7 +18,7 @@ cat <<EOF > /etc/sysconfig/node_exporter
 
 OPTIONS=""
 
-EOF
+EOF}
 
 -Создаем systemd сервис
 сat <<EOF > /usr/lib/systemd/system/node_exporter.service
