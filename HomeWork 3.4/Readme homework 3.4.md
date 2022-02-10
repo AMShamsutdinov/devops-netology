@@ -85,9 +85,7 @@ config.vm.network "forwarded_port", guest: 19999, host: 19999
 4)Можно ли по выводу dmesg понять, осознает ли ОС, что загружена не на настоящем оборудовании, а на системе виртуализации?
 
 Ответ:
-
 Да, можно понять.
-
 Консоль:
      
      vagrant@vagrant:~$ dmesg |grep virt
@@ -110,7 +108,6 @@ config.vm.network "forwarded_port", guest: 19999, host: 19999
 6)Запустите любой долгоживущий процесс (не ls, который отработает мгновенно, а, например, sleep 1h) в отдельном неймспейсе процессов; покажите, что ваш процесс работает под PID 1 через nsenter. Для простоты работайте в данном задании под root (sudo -i). Под обычным пользователем требуются дополнительные опции (--map-root-user) и т.д.
      
 Ответ:
-
      root@vagrant:~# unshare -f --pid --mount-proc sleep 10h
      ^Z
      [1]+  Stopped                 unshare -f --pid --mount-proc sleep 10h
