@@ -76,9 +76,9 @@
 Работоспособность можно проверить по адресу http://localhost:9100/metrics
 
 2) Ознакомьтесь с опциями node_exporter и выводом /metrics по-умолчанию. Приведите несколько опций, которые вы бы выбрали для базового мониторинга хоста по CPU, памяти, диску и сети.
-ля просмотра метрик можно использовать команду `curl localhost:9100/metrics`
-
-Ответ:
+     
+Ответ:     
+Для просмотра метрик можно использовать команду `curl localhost:9100/metrics` либо по адресу http://localhost:9100/metrics
      
 Для CPU:
 
@@ -110,7 +110,42 @@
 добавьте в Vagrantfile проброс порта Netdata на свой локальный компьютер и сделайте vagrant reload:
 config.vm.network "forwarded_port", guest: 19999, host: 19999
 После успешной перезагрузки в браузере на своем ПК (не в виртуальной машине) вы должны суметь зайти на localhost:19999. Ознакомьтесь с метриками, которые по умолчанию собираются Netdata и с комментариями, которые даны к этим метрикам.
+     
+ С данным заданием возникли сложности.
+ netdata установлена и запущена, но в браузере открыть по адресу не localhost:19999 удается.
+ 
+          root@vagrant:~# systemctl status netdata
+     ● netdata.service - Real time performance monitoring
+          Loaded: loaded (/lib/systemd/system/netdata.service; enabled; vendor preset: enabled)
+          Active: active (running) since Thu 2022-02-10 21:24:48 UTC; 1h 1min ago
+        Main PID: 20534 (netdata)
+           Tasks: 61 (limit: 1071)
+          Memory: 112.0M
+          CGroup: /system.slice/netdata.service
+                  ├─20534 /usr/sbin/netdata -D
+                  ├─20546 /usr/sbin/netdata --special-spawn-server
+                  ├─20705 /usr/libexec/netdata/plugins.d/apps.plugin 1
+                  ├─20707 /usr/libexec/netdata/plugins.d/nfacct.plugin 1
+                  ├─20708 /usr/libexec/netdata/plugins.d/go.d.plugin 1
+                  ├─20713 /usr/libexec/netdata/plugins.d/ebpf.plugin 1
+                  └─42686 bash /usr/libexec/netdata/plugins.d/tc-qos-helper.sh 1
 
+     Feb 10 21:24:48 vagrant netdata[20534]: 2022-02-10 21:24:48: netdata INFO  : MAIN : CONFIG: cannot load cloud config '/var/lib/netdata/cloud.d/cloud.conf'. Running with internal defaults.
+     Feb 10 21:24:48 vagrant netdata[20534]: 2022-02-10 21:24:48: netdata INFO  : MAIN : Found 0 legacy dbengines, setting multidb diskspace to 256MB
+     Feb 10 21:24:48 vagrant netdata[20534]: 2022-02-10 21:24:48: netdata INFO  : MAIN : Created file '/var/lib/netdata/dbengine_multihost_size' to store the computed value
+     Feb 10 21:24:48 vagrant netdata[20534]: Found 0 legacy dbengines, setting multidb diskspace to 256MB
+     Feb 10 21:24:48 vagrant netdata[20534]: Created file '/var/lib/netdata/dbengine_multihost_size' to store the computed value
+     Feb 10 21:24:49 vagrant ebpf.plugin[20713]: Does not have a configuration file inside `/etc/netdata/ebpf.d.conf. It will try to load stock file.
+     Feb 10 21:24:49 vagrant ebpf.plugin[20713]: Name resolution is disabled, collector will not parser "hostnames" list.
+     Feb 10 21:24:49 vagrant ebpf.plugin[20713]: The network value of CIDR 127.0.0.1/8 was updated for 127.0.0.0 .
+     Feb 10 21:24:49 vagrant ebpf.plugin[20713]: PROCFILE: Cannot open file '/etc/netdata/apps_groups.conf'
+     Feb 10 21:24:49 vagrant ebpf.plugin[20713]: Cannot read process groups configuration file '/etc/netdata/apps_groups.conf'. Will try '/usr/lib/netdata/conf.d/apps_groups.conf'
+
+  Порт работает на прием
+     
+          root@vagrant:~# ss -tnlp | grep :19999
+     LISTEN    0         4096               0.0.0.0:19999            0.0.0.0:*        users:(("netdata",pid=20534,fd=5))
+     
 4) Можно ли по выводу dmesg понять, осознает ли ОС, что загружена не на настоящем оборудовании, а на системе виртуализации?
 
 Ответ:
