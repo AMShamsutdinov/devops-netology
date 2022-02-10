@@ -48,27 +48,27 @@
      systemctl start node_exporter
 
 Проверка статуса:
-     root@vagrant:~# systemctl status node_exporter
-     ● node_exporter.service - Prometheus Node exporter for machine metrics
-          Loaded: loaded (/lib/systemd/system/node_exporter.service; enabled; vendor preset: enabled)
-          Active: active (running) since Thu 2022-02-10 17:12:21 UTC; 2h 8min ago
-           Docs: https://github.com/prometheus/node_exporter
-     Main PID: 607 (node_exporter)
-          Tasks: 5 (limit: 1071)
-          Memory: 6.6M
-          CGroup: /system.slice/node_exporter.service
-               └─607 /usr/local/bin/node_exporter --log.level=info
+          root@vagrant:~# systemctl status node_exporter
+          ● node_exporter.service - Prometheus Node exporter for machine metrics
+               Loaded: loaded (/lib/systemd/system/node_exporter.service; enabled; vendor preset: enabled)
+               Active: active (running) since Thu 2022-02-10 17:12:21 UTC; 2h 8min ago
+                Docs: https://github.com/prometheus/node_exporter
+          Main PID: 607 (node_exporter)
+               Tasks: 5 (limit: 1071)
+               Memory: 6.6M
+               CGroup: /system.slice/node_exporter.service
+                    └─607 /usr/local/bin/node_exporter --log.level=info
 
-     Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
-     Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
-     Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
-     Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
-     Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
-     Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
-     Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
-     Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
-     Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.665Z caller=node_exporter.go:199 msg="Lis>
-     Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.665Z caller=tls_config.go:191 msg="TLS is>
+          Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
+          Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
+          Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
+          Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
+          Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
+          Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
+          Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
+          Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
+          Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.665Z caller=node_exporter.go:199 msg="Lis>
+          Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.665Z caller=tls_config.go:191 msg="TLS is>
      
      --Работоспособность можно проверить по адресу http://localhost:9100/metrics
 
