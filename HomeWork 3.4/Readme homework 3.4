@@ -4,18 +4,16 @@
 -удостоверьтесь, что с помощью systemctl процесс корректно стартует, завершается, а после перезагрузки автоматически поднимается.
 Ответ:
 Ответ:
-- Скачан архив:
-
+     -- Скачан архив:
 сd tmp
 wget https://github.com/prometheus/node_exporter/releases/download/v1.3.1/node_exporter-1.3.1.linux-amd64.tar.gz
 tar xvfz node_exporter-0.18.1.linux-amd64.tar.gz
 cd node_exporter-0.18.1.linux-amd64
 
--Перенесен в папку /usr/local/bin/:
-
+     --Перенесен в папку /usr/local/bin/:
 mv node_exporter /usr/local/bin/
 
-- Создан конфигурационный файл node_exporter в /etc/sysconfig/ 
+     -- Создан конфигурационный файл node_exporter в /etc/sysconfig/ 
 cat <<EOF > /etc/sysconfig/node_exporter
 
 OPTIONS=""
@@ -26,12 +24,10 @@ EOF
 сat <<EOF > /usr/lib/systemd/system/node_exporter.service
 
 [Unit]
-
 Description=Prometheus Node exporter for machine metrics
 Documentation=https://github.com/prometheus/node_exporter
 
 [Service]
-
 Restart=always
 User=root
 EnvironmentFile=/etc/sysconfig/node_exporter
@@ -41,16 +37,15 @@ TimeoutStopSec=20s
 SendSIGKILL=no
 
 [Install]
-
 WantedBy=multi-user.target
 EOF
 
-- Добавляем в автозагрузку:
+     --Добавляем в автозагрузку:
 systemctl enable node_exporter
 systemctl daemon-reload
 systemctl start node_exporter
 
-- Проверка статуса:
+     --Проверка статуса:
 root@vagrant:~# systemctl status node_exporter
 ● node_exporter.service - Prometheus Node exporter for machine metrics
      Loaded: loaded (/lib/systemd/system/node_exporter.service; enabled; vendor preset: enabled)
