@@ -1,8 +1,78 @@
 1) На лекции мы познакомились с node_exporter. В демонстрации его исполняемый файл запускался в background. Этого достаточно для демо, но не для настоящей production-системы, где процессы должны находиться под внешним управлением. Используя знания из лекции по systemd, создайте самостоятельно простой unit-файл для node_exporter:
+-поместите его в автозагрузку,
+-предусмотрите возможность добавления опций к запускаемому процессу через внешний файл (посмотрите, например, на systemctl cat cron),
+-удостоверьтесь, что с помощью systemctl процесс корректно стартует, завершается, а после перезагрузки автоматически поднимается.
+Ответ:
+Ответ:
+- Скачан архив:
 
-поместите его в автозагрузку,
-предусмотрите возможность добавления опций к запускаемому процессу через внешний файл (посмотрите, например, на systemctl cat cron),
-удостоверьтесь, что с помощью systemctl процесс корректно стартует, завершается, а после перезагрузки автоматически поднимается.
+сd tmp
+wget https://github.com/prometheus/node_exporter/releases/download/v1.3.1/node_exporter-1.3.1.linux-amd64.tar.gz
+tar xvfz node_exporter-0.18.1.linux-amd64.tar.gz
+cd node_exporter-0.18.1.linux-amd64
+
+-Перенесен в папку /usr/local/bin/:
+
+mv node_exporter /usr/local/bin/
+
+- Создан конфигурационный файл node_exporter в /etc/sysconfig/ 
+cat <<EOF > /etc/sysconfig/node_exporter
+
+OPTIONS=""
+
+EOF
+
+-Создаем systemd сервис
+сat <<EOF > /usr/lib/systemd/system/node_exporter.service
+
+[Unit]
+
+Description=Prometheus Node exporter for machine metrics
+Documentation=https://github.com/prometheus/node_exporter
+
+[Service]
+
+Restart=always
+User=root
+EnvironmentFile=/etc/sysconfig/node_exporter
+ExecStart=/usr/local/bin/node_exporter \$OPTIONS
+ExecReload=/bin/kill -HUP \$MAINPID
+TimeoutStopSec=20s
+SendSIGKILL=no
+
+[Install]
+
+WantedBy=multi-user.target
+EOF
+
+- Добавляем в автозагрузку:
+systemctl enable node_exporter
+systemctl daemon-reload
+systemctl start node_exporter
+
+- Проверка статуса:
+root@vagrant:~# systemctl status node_exporter
+● node_exporter.service - Prometheus Node exporter for machine metrics
+     Loaded: loaded (/lib/systemd/system/node_exporter.service; enabled; vendor preset: enabled)
+     Active: active (running) since Thu 2022-02-10 17:12:21 UTC; 2h 8min ago
+       Docs: https://github.com/prometheus/node_exporter
+   Main PID: 607 (node_exporter)
+      Tasks: 5 (limit: 1071)
+     Memory: 6.6M
+     CGroup: /system.slice/node_exporter.service
+             └─607 /usr/local/bin/node_exporter --log.level=info
+
+Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
+Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
+Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
+Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
+Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
+Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
+Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
+Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.664Z caller=node_exporter.go:115 collecto>
+Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.665Z caller=node_exporter.go:199 msg="Lis>
+Feb 10 17:12:21 vagrant node_exporter[607]: level=info ts=2022-02-10T17:12:21.665Z caller=tls_config.go:191 msg="TLS is>
+
 2)Ознакомьтесь с опциями node_exporter и выводом /metrics по-умолчанию. Приведите несколько опций, которые вы бы выбрали для базового мониторинга хоста по CPU, памяти, диску и сети.
 
 3)Установите в свою виртуальную машину Netdata. Воспользуйтесь готовыми пакетами для установки (sudo apt install -y netdata). После успешной установки:
