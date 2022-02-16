@@ -7,7 +7,8 @@
 Не могут, так как жесткие ссылки ссылаются на одну inode в которой и содержится информация о правах и владельце.
 
 3) Сделайте vagrant destroy на имеющийся инстанс Ubuntu. Замените содержимое Vagrantfile следующим:
-
+  
+  ```commandline
   Vagrant.configure("2") do |config|
     config.vm.box = "bento/ubuntu-20.04"
     config.vm.provider :virtualbox do |vb|
@@ -19,6 +20,7 @@
       vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 2, '--device', 0, '--type', 'hdd', '--medium', lvm_experiments_disk1_path]
     end
   end
+  ```
   
 Данная конфигурация создаст новую виртуальную машину с двумя дополнительными неразмеченными дисками по 2.5 Гб.
 
