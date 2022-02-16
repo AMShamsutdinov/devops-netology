@@ -1,14 +1,14 @@
 1) Работа c HTTP через телнет.
 Подключитесь утилитой телнет к сайту stackoverflow.com telnet stackoverflow.com 80
 отправьте HTTP запрос
-
+```commandline
   GET /questions HTTP/1.0
   HOST: stackoverflow.com
   [press enter]
   [press enter]
-  
+```
 В ответе укажите полученный HTTP код, что он означает?
-
+```commandline
   vagrant@vagrant:~$ telnet stackoverflow.com 80
   Trying 151.101.129.69...
   Connected to stackoverflow.com.
@@ -34,3 +34,4 @@
   Set-Cookie: prov=ae469b49-0da5-76e5-bec4-cc03dcb5667b; domain=.stackoverflow.com; expires=Fri, 01-Jan-2055 00:00:00 GMT; path=/; HttpOnly
 
   Connection closed by foreign host.
+```
