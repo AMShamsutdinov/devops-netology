@@ -8,6 +8,8 @@
   [press enter]
 ```
 В ответе укажите полученный HTTP код, что он означает?
+
+Ответ:
 ```commandline
   vagrant@vagrant:~$ telnet stackoverflow.com 80
   Trying 151.101.129.69...
