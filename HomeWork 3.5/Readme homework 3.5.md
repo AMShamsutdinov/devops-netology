@@ -44,6 +44,7 @@
 4) Используя fdisk, разбейте первый диск на 2 раздела: 2 Гб, оставшееся пространство.
 
 Отображение дисковой системы после изменений:
+
     ```commandline
     vagrant@vagrant:~$ lsblk
     NAME                      MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
@@ -63,6 +64,7 @@
     └─sdb2                      8:18   0  511M  0 part
     sdc                         8:32   0  2.5G  0 disk
     ```
+    
 5) Используя sfdisk, перенесите данную таблицу разделов на второй диск.
 
    ```commandline
