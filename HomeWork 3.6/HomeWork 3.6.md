@@ -1,10 +1,12 @@
 1) Работа c HTTP через телнет.
 Подключитесь утилитой телнет к сайту stackoverflow.com telnet stackoverflow.com 80
 отправьте HTTP запрос
+
   GET /questions HTTP/1.0
   HOST: stackoverflow.com
   [press enter]
   [press enter]
+  
 В ответе укажите полученный HTTP код, что он означает?
 
   vagrant@vagrant:~$ telnet stackoverflow.com 80
@@ -13,7 +15,6 @@
   Escape character is '^]'.
   GET /questions HTTP/1.0
   HOST: stackoverflow.com
-
   HTTP/1.1 301 Moved Permanently
   cache-control: no-cache, no-store, must-revalidate
   location: https://stackoverflow.com/questions
