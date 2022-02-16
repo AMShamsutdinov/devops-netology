@@ -24,6 +24,7 @@
   
 Данная конфигурация создаст новую виртуальную машину с двумя дополнительными неразмеченными дисками по 2.5 Гб.
 
+  ```commandline
   vagrant@vagrant:~$ lsblk
   NAME                      MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
   loop0                       7:0    0 55.4M  1 loop /snap/core18/2128
@@ -38,11 +39,11 @@
     └─ubuntu--vg-ubuntu--lv 253:0    0 31.5G  0 lvm  /
   sdb                         8:16   0  2.5G  0 disk
   sdc                         8:32   0  2.5G  0 disk
-  
+  ```
 4) Используя fdisk, разбейте первый диск на 2 раздела: 2 Гб, оставшееся пространство.
 
 Отображение дисковой системы после изменений:
-
+    ```commandline
     vagrant@vagrant:~$ lsblk
     NAME                      MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
     loop0                       7:0    0 55.4M  1 loop /snap/core18/2128
@@ -60,9 +61,9 @@
     ├─sdb1                      8:17   0    2G  0 part
     └─sdb2                      8:18   0  511M  0 part
     sdc                         8:32   0  2.5G  0 disk
-
+    ```
 5) Используя sfdisk, перенесите данную таблицу разделов на второй диск.
-
+   ```commandline
    vagrant@vagrant:~$ sudo sfdisk -d /dev/sdb| sudo sfdisk /dev/sdc
    Checking that no-one is using this disk right now ... OK
 
@@ -92,7 +93,7 @@
    The partition table has been altered.
    Calling ioctl() to re-read partition table.
    Syncing disks.
-
+   ```
 6) Соберите mdadm RAID1 на паре разделов 2 Гб.
 
 Соберите mdadm RAID0 на второй паре маленьких разделов.
