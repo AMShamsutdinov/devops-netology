@@ -37,3 +37,7 @@
 
   Connection closed by foreign host.
 ```
+
+Получен код 301 Moved Permanently. Данный ответ означает что страница http://stackoverflow.com/questions была перемещена на https://stackoverflow.com/questions.
+
+2) 
