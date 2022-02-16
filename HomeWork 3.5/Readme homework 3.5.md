@@ -45,7 +45,7 @@
 
 Отображение дисковой системы после изменений:
 
-    ```commandline
+```commandline
     vagrant@vagrant:~$ lsblk
     NAME                      MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
     loop0                       7:0    0 55.4M  1 loop /snap/core18/2128
@@ -63,7 +63,7 @@
     ├─sdb1                      8:17   0    2G  0 part
     └─sdb2                      8:18   0  511M  0 part
     sdc                         8:32   0  2.5G  0 disk
-    ```
+```
     
 5) Используя sfdisk, перенесите данную таблицу разделов на второй диск.
 
