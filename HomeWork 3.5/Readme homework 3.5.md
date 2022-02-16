@@ -40,6 +40,7 @@
   sdb                         8:16   0  2.5G  0 disk
   sdc                         8:32   0  2.5G  0 disk
   ```
+  
 4) Используя fdisk, разбейте первый диск на 2 раздела: 2 Гб, оставшееся пространство.
 
 Отображение дисковой системы после изменений:
@@ -63,6 +64,7 @@
     sdc                         8:32   0  2.5G  0 disk
     ```
 5) Используя sfdisk, перенесите данную таблицу разделов на второй диск.
+
    ```commandline
    vagrant@vagrant:~$ sudo sfdisk -d /dev/sdb| sudo sfdisk /dev/sdc
    Checking that no-one is using this disk right now ... OK
