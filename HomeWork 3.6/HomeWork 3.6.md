@@ -56,10 +56,11 @@
 Мой ip:46.191.232.196
 ![image](https://user-images.githubusercontent.com/95446190/155806713-d16e5c5e-2162-42eb-822c-5917a7de6b98.png)
 
-4) Какому провайдеру принадлежит ваш IP адрес? Какой автономной системе AS? Воспользуйтесь утилитой ``whois`
+4) Какому провайдеру принадлежит ваш IP адрес? Какой автономной системе AS? Воспользуйтесь утилитой `whois`
 
   Имя провайдера: JSC "Ufanet" 
   Автономная система: AS24955
+  
     ```
     root@vagrant:/home/vagrant# whois 46.191.232.196
     % This is the RIPE Database query service.
