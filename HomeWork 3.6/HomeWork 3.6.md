@@ -51,3 +51,66 @@
 Описание запроса:
 ![image](https://user-images.githubusercontent.com/95446190/155806119-f5cb008b-6eff-4ffc-bfe8-23bbe05cb412.png)
 
+3) Какой IP адрес у вас в интернете?
+
+Мой ip:46.191.232.196
+![image](https://user-images.githubusercontent.com/95446190/155806713-d16e5c5e-2162-42eb-822c-5917a7de6b98.png)
+
+4) Какому провайдеру принадлежит ваш IP адрес? Какой автономной системе AS? Воспользуйтесь утилитой ``whois`
+
+  Имя провайдера: JSC "Ufanet" 
+  Автономная система: AS24955
+    ```
+    root@vagrant:/home/vagrant# whois 46.191.232.196
+    % This is the RIPE Database query service.
+    % The objects are in RPSL format.
+    %
+    % The RIPE Database is subject to Terms and Conditions.
+    % See http://www.ripe.net/db/support/db-terms-conditions.pdf
+
+    % Note: this output has been filtered.
+    %       To receive output for a database update, use the "-B" flag.
+
+    % Information related to '46.191.232.0 - 46.191.239.255'
+
+    % Abuse contact for '46.191.232.0 - 46.191.239.255' is 'abuse@ufanet.ru'
+
+    inetnum:        46.191.232.0 - 46.191.239.255
+    netname:        UBN
+    descr:          JSC "Ufanet"
+    descr:          Ufa, Russia
+    country:        RU
+    admin-c:        UN1646-RIPE
+    tech-c:         UN1646-RIPE
+    status:         ASSIGNED PA
+    mnt-by:         UBN-MNT
+    created:        2011-11-18T13:00:19Z
+    last-modified:  2018-08-02T03:10:23Z
+    source:         RIPE
+
+    role:           Ufanet NOC
+    address:        pr. Oktyabrya, 4/3
+    address:        Ufa, Russia
+    org:            ORG-Zs2-RIPE
+    admin-c:        AS39184-RIPE
+    tech-c:         VO1179-RIPE
+    tech-c:         RK10446-RIPE
+    abuse-mailbox:  abuse@ufanet.ru
+    nic-hdl:        UN1646-RIPE
+    mnt-by:         UBN-MNT
+    created:        2018-06-06T11:54:33Z
+    last-modified:  2019-12-18T11:54:01Z
+    source:         RIPE # Filtered
+
+    % Information related to '46.191.232.0/24AS24955'
+
+    route:          46.191.232.0/24
+    descr:          JSC "Ufanet", Ufa, Russia
+    origin:         AS24955
+    mnt-by:         UBN-MNT
+    created:        2018-08-15T03:36:56Z
+    last-modified:  2018-08-15T03:36:56Z
+    source:         RIPE
+
+    % This query was served by the RIPE Database Query Service version 1.102.2 (HEREFORD)
+    ```
