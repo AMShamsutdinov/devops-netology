@@ -68,14 +68,10 @@
     %
     % The RIPE Database is subject to Terms and Conditions.
     % See http://www.ripe.net/db/support/db-terms-conditions.pdf
-
     % Note: this output has been filtered.
     %       To receive output for a database update, use the "-B" flag.
-
     % Information related to '46.191.232.0 - 46.191.239.255'
-
     % Abuse contact for '46.191.232.0 - 46.191.239.255' is 'abuse@ufanet.ru'
-
     inetnum:        46.191.232.0 - 46.191.239.255
     netname:        UBN
     descr:          JSC "Ufanet"
