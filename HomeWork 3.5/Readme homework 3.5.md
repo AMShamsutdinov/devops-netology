@@ -136,13 +136,126 @@
 
 7) Соберите mdadm RAID0 на второй паре маленьких разделов.
 
-Создайте 2 независимых PV на получившихся md-устройствах.
+      ```
+      vagrant@vagrant:~$ sudo mdadm --create /dev/md1 --level=0 --raid-devices=2 /dev/sd[bc]2
+      mdadm: Defaulting to version 1.2 metadata
+      mdadm: array /dev/md1 started.
+      vagrant@vagrant:~$ lsblk
+      NAME                      MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
+      loop0                       7:0    0 55.4M  1 loop  /snap/core18/2128
+      loop1                       7:1    0 61.9M  1 loop  /snap/core20/1328
+      loop2                       7:2    0 61.9M  1 loop  /snap/core20/1361
+      loop3                       7:3    0 55.5M  1 loop  /snap/core18/2284
+      loop4                       7:4    0 67.2M  1 loop  /snap/lxd/21835
+      loop5                       7:5    0 43.6M  1 loop  /snap/snapd/14978
+      loop6                       7:6    0 67.9M  1 loop  /snap/lxd/22526
+      sda                         8:0    0   64G  0 disk
+      ├─sda1                      8:1    0    1M  0 part
+      ├─sda2                      8:2    0    1G  0 part  /boot
+      └─sda3                      8:3    0   63G  0 part
+        └─ubuntu--vg-ubuntu--lv 253:0    0 31.5G  0 lvm   /
+      sdb                         8:16   0  2.5G  0 disk
+      ├─sdb1                      8:17   0    2G  0 part
+      │ └─md0                     9:0    0    2G  0 raid1
+      └─sdb2                      8:18   0  511M  0 part
+        └─md1                     9:1    0 1018M  0 raid0
+      sdc                         8:32   0  2.5G  0 disk
+      ├─sdc1                      8:33   0    2G  0 part
+      │ └─md0                     9:0    0    2G  0 raid1
+      └─sdc2                      8:34   0  511M  0 part
+        └─md1                     9:1    0 1018M  0 raid0
+      ```
+      
+8) Создайте 2 независимых PV на получившихся md-устройствах.
 
-Создайте общую volume-group на этих двух PV.
+  ```
+  root@vagrant:/home/vagrant# pvcreate /dev/md0
+    Physical volume "/dev/md0" successfully created.
+  root@vagrant:/home/vagrant# pvcreate /dev/md1
+    Physical volume "/dev/md1" successfully created.
+  root@vagrant:/home/vagrant# pvdisplay
+    --- Physical volume ---
+    PV Name               /dev/sda3
+    VG Name               ubuntu-vg
+    PV Size               <63.00 GiB / not usable 0
+    Allocatable           yes
+    PE Size               4.00 MiB
+    Total PE              16127
+    Free PE               8063
+    Allocated PE          8064
+    PV UUID               sDUvKe-EtCc-gKuY-ZXTD-1B1d-eh9Q-XldxLf
 
-Создайте LV размером 100 Мб, указав его расположение на PV с RAID0.
+    "/dev/md0" is a new physical volume of "<2.00 GiB"
+    --- NEW Physical volume ---
+    PV Name               /dev/md0
+    VG Name
+    PV Size               <2.00 GiB
+    Allocatable           NO
+    PE Size               0
+    Total PE              0
+    Free PE               0
+    Allocated PE          0
+    PV UUID               EKXuM5-7g5K-Q1mq-4Mex-dNTt-xwV1-6PodRs
 
-Создайте mkfs.ext4 ФС на получившемся LV.
+    "/dev/md1" is a new physical volume of "1018.00 MiB"
+    --- NEW Physical volume ---
+    PV Name               /dev/md1
+    VG Name
+    PV Size               1018.00 MiB
+    Allocatable           NO
+    PE Size               0
+    Total PE              0
+    Free PE               0
+    Allocated PE          0
+    PV UUID               5Whf8K-3cfs-xcLj-oy1v-0txo-RFUu-HEq5qJ
+  ```
+
+9) Создайте общую volume-group на этих двух PV.
+
+  ```
+  root@vagrant:/home/vagrant# vgcreate VG_mine /dev/md0 /dev/md1
+    Volume group "VG_mine" successfully created
+  root@vagrant:/home/vagrant# pvs
+    PV         VG        Fmt  Attr PSize    PFree
+    /dev/md0   VG_mine   lvm2 a--    <2.00g   <2.00g
+    /dev/md1   VG_mine   lvm2 a--  1016.00m 1016.00m
+    /dev/sda3  ubuntu-vg lvm2 a--   <63.00g  <31.50g
+  ```
+
+10) Создайте LV размером 100 Мб, указав его расположение на PV с RAID0.
+
+  ```
+  root@vagrant:/home/vagrant# lvcreate -L 100M VG_mine /dev/md1
+    Logical volume "lvol0" created.
+  root@vagrant:/home/vagrant# lsblk
+  NAME                      MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
+  loop0                       7:0    0 55.4M  1 loop  /snap/core18/2128
+  loop1                       7:1    0 61.9M  1 loop  /snap/core20/1328
+  loop2                       7:2    0 61.9M  1 loop  /snap/core20/1361
+  loop3                       7:3    0 55.5M  1 loop  /snap/core18/2284
+  loop4                       7:4    0 67.2M  1 loop  /snap/lxd/21835
+  loop5                       7:5    0 43.6M  1 loop  /snap/snapd/14978
+  loop6                       7:6    0 67.9M  1 loop  /snap/lxd/22526
+  sda                         8:0    0   64G  0 disk
+  ├─sda1                      8:1    0    1M  0 part
+  ├─sda2                      8:2    0    1G  0 part  /boot
+  └─sda3                      8:3    0   63G  0 part
+    └─ubuntu--vg-ubuntu--lv 253:0    0 31.5G  0 lvm   /
+  sdb                         8:16   0  2.5G  0 disk
+  ├─sdb1                      8:17   0    2G  0 part
+  │ └─md0                     9:0    0    2G  0 raid1
+  └─sdb2                      8:18   0  511M  0 part
+    └─md1                     9:1    0 1018M  0 raid0
+      └─VG_mine-lvol0       253:1    0  100M  0 lvm
+  sdc                         8:32   0  2.5G  0 disk
+  ├─sdc1                      8:33   0    2G  0 part
+  │ └─md0                     9:0    0    2G  0 raid1
+  └─sdc2                      8:34   0  511M  0 part
+    └─md1                     9:1    0 1018M  0 raid0
+      └─VG_mine-lvol0       253:1    0  100M  0 lvm
+  ```
+
+11) Создайте mkfs.ext4 ФС на получившемся LV.
 
 Смонтируйте этот раздел в любую директорию, например, /tmp/new.
 
