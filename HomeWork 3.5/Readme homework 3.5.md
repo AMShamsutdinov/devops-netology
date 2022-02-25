@@ -100,7 +100,41 @@
      ```
 6) Соберите mdadm RAID1 на паре разделов 2 Гб.
 
-Соберите mdadm RAID0 на второй паре маленьких разделов.
+      ```
+      vagrant@vagrant:~$ sudo mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sd[bc]1
+      mdadm: Note: this array has metadata at the start and
+          may not be suitable as a boot device.  If you plan to
+          store '/boot' on this device please ensure that
+          your boot-loader understands md/v1.x metadata, or use
+          --metadata=0.90
+      Continue creating array? y
+      mdadm: Defaulting to version 1.2 metadata
+      mdadm: array /dev/md0 started.
+      vagrant@vagrant:~$ lsblk
+      NAME                      MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
+      loop0                       7:0    0 55.4M  1 loop  /snap/core18/2128
+      loop1                       7:1    0 61.9M  1 loop  /snap/core20/1328
+      loop2                       7:2    0 61.9M  1 loop  /snap/core20/1361
+      loop3                       7:3    0 55.5M  1 loop  /snap/core18/2284
+      loop4                       7:4    0 67.2M  1 loop  /snap/lxd/21835
+      loop5                       7:5    0 43.6M  1 loop  /snap/snapd/14978
+      loop6                       7:6    0 67.9M  1 loop  /snap/lxd/22526
+      sda                         8:0    0   64G  0 disk
+      ├─sda1                      8:1    0    1M  0 part
+      ├─sda2                      8:2    0    1G  0 part  /boot
+      └─sda3                      8:3    0   63G  0 part
+        └─ubuntu--vg-ubuntu--lv 253:0    0 31.5G  0 lvm   /
+      sdb                         8:16   0  2.5G  0 disk
+      ├─sdb1                      8:17   0    2G  0 part
+      │ └─md0                     9:0    0    2G  0 raid1
+      └─sdb2                      8:18   0  511M  0 part
+      sdc                         8:32   0  2.5G  0 disk
+      ├─sdc1                      8:33   0    2G  0 part
+      │ └─md0                     9:0    0    2G  0 raid1
+      └─sdc2                      8:34   0  511M  0 part
+      ```
+
+7) Соберите mdadm RAID0 на второй паре маленьких разделов.
 
 Создайте 2 независимых PV на получившихся md-устройствах.
 
