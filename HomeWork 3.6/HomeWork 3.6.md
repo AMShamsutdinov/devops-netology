@@ -61,7 +61,7 @@
   Имя провайдера: JSC "Ufanet" 
   Автономная система: AS24955
   
-    ```
+```
     root@vagrant:/home/vagrant# whois 46.191.232.196
     % This is the RIPE Database query service.
     % The objects are in RPSL format.
@@ -110,4 +110,4 @@
     source:         RIPE
 
     % This query was served by the RIPE Database Query Service version 1.102.2 (HEREFORD)
-    ```
+```
