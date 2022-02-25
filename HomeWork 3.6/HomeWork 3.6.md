@@ -40,4 +40,14 @@
 
 Получен код 301 Moved Permanently. Данный ответ означает что страница http://stackoverflow.com/questions была перемещена на https://stackoverflow.com/questions.
 
-2) 
+2) Повторите задание 1 в браузере, используя консоль разработчика F12
+
+Ошибка 301 и перенаправление:
+![image](https://user-images.githubusercontent.com/95446190/155805684-11c40159-ee8b-4a77-b92f-14fb2936a6ee.png)
+
+Самый долгий запрос 383ms
+![image](https://user-images.githubusercontent.com/95446190/155806043-c9168793-2899-412e-83b0-09f4d92cfbed.png)
+
+Описание запроса:
+![image](https://user-images.githubusercontent.com/95446190/155806119-f5cb008b-6eff-4ffc-bfe8-23bbe05cb412.png)
+
